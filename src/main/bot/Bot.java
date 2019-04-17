@@ -15,8 +15,8 @@ import com.pengrad.telegrambot.response.SendResponse;
 public class Bot {
 
 	private static final String TOKEN = "351992088:AAGD410aeUAaTIrATtCm3Y8lw56X9Y4RMYk";
-	
-	
+
+
 	public static void main(String[] args) {
 		TelegramBot bot = new TelegramBot(TOKEN);
 		int m = 0;
@@ -28,16 +28,24 @@ public class Bot {
 				if (update.message() != null) {
 					bot.execute(new SendChatAction(update.message().chat().id(), ChatAction.typing.name()));
 					Message msg = update.message();
-					//System.out.println(msg.contact().firstName());
-					//System.out.println(msg.contact().userId());
-					System.out.println(msg.from().username());
 					System.out.println(msg.from().id());
-					if (!msg.from().username().isEmpty()) 
-						msgReturn = msg.from().username();
-					else if (!msg.from().firstName().isEmpty())
-						msgReturn = msg.from().firstName();
-					else
-						msgReturn = "Coso";
+					switch (msg.from().id()) {
+					case (295690904):
+						msgReturn = "Quel trimone di Tommaso";
+					break;
+					
+					case (192986246):
+						msgReturn = "Il mio Creatore";
+					break;
+					default :
+						if (msg.from().username() != null) 
+							msgReturn = msg.from().username();
+						else if (msg.from().firstName() != null)
+							msgReturn = msg.from().firstName();
+						else
+							msgReturn = "Coso";
+						break;
+					}
 					msgReturn += " ha scritto qualcosa";
 					/*
 					if (msg.from().id() == 106656880)
@@ -46,16 +54,15 @@ public class Bot {
 						msgReturn = "Questa è Marzia";
 					if (msg.from().id() == 171271615)
 						msgReturn = "Questo è ricchi";
-						*/
+					 */
 					//update.message().chat();
 					/*
 					if (msg.text().isEmpty())
 						msgReturn = "vuoto";
 					else msgReturn = "non vuoto";
-					*/
+					 */
 					bot.execute(new SendMessage(update.message().chat().id(), msgReturn));
 				}
-
 			}
 		}
 	}
